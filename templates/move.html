@@ -2,7 +2,8 @@
 <head>
 
 <script src="motion.min.js"></script>
-	
+<
+  
 </head>
 
 
@@ -45,8 +46,14 @@
 
 
   </table>
+
+
+  <div> alpha <h1 id="alpha"> </h1> </div>
+  <div> beta <h1 id="beta"> </h1> </div>
+  <div> gamma <h1 id="gamma"> </h1> </div>
+
 </div>
-	
+  
 
 
 <script type="text/javascript">
@@ -80,6 +87,9 @@ if (window.DeviceMotionEvent) {
 function sampleSensorData(){
 
     document.getElementById("slowSample").innerHTML = [alpha, beta, gamma];
+    document.getElementById("alpha").innerHTML = alpha*180/Math.PI;
+    document.getElementById("beta").innerHTML = beta*180/Math.PI;
+    document.getElementById("gamma").innerHTML = gamma*180/Math.PI;
 }
 
 function deviceMotionHandler(eventData) {
