@@ -1,0 +1,125 @@
+<html>
+<head>
+
+<script src="motion.min.js"></script>
+	
+</head>
+
+
+<body>
+
+<div class="main">
+  <h2>Device Motion</h2>
+  <table>
+    <tr>
+      <td>Event Supported</td>
+      <td id="dmEvent"></td>
+    </tr>
+    <tr>
+      <td>acceleration</td>
+      <td id="moAccel"></td>
+    </tr>
+    <tr>
+      <td>accelerationIncludingGravity</td>
+      <td id="moAccelGrav"></td>
+    </tr>
+    <tr>
+      <td>rotationRate</td>
+      <td id="moRotation"></td>
+    </tr>
+    <tr>
+      <td>interval</td>
+      <td id="moInterval"></td>
+    </tr>
+
+    <tr>
+      <td>Sampling at 200ms</td>
+      <td id="slowSample"></td>
+    </tr>
+
+     <tr>
+      <td>Shake State</td>
+      <td id="shakeState"></td>
+    </tr>
+
+
+
+  </table>
+</div>
+	
+
+
+<script type="text/javascript">
+
+var alpha = 0;
+var beta = 0;
+var gamma = 0;
+
+
+
+if (window.DeviceMotionEvent) {
+  console.log("DeviceMotionEvent supported");
+} 
+
+if (window.DeviceMotionEvent) {
+  window.addEventListener('devicemotion', deviceMotionHandler, false);
+  window.setInterval(sampleSensorData, 5000)
+
+  window.addEventListener('shakestart', function(event){
+    document.getElementById('shakeState').innerHTML = 'Shaking';
+});
+  window.addEventListener('shakeend', function(event){
+    document.getElementById('shakeState').innerHTML = 'Not Shaking';
+});
+
+
+} else {
+  document.getElementById("dmEvent").innerHTML = "Not supported."
+}
+
+function sampleSensorData(){
+
+    document.getElementById("slowSample").innerHTML = [alpha, beta, gamma];
+}
+
+function deviceMotionHandler(eventData) {
+  var info, xyz = "[X, Y, Z]";
+
+  // Grab the acceleration from the results
+  var acceleration = eventData.acceleration;
+  info = xyz.replace("X", acceleration.x);
+  info = info.replace("Y", acceleration.y);
+  info = info.replace("Z", acceleration.z);
+  document.getElementById("moAccel").innerHTML = info;
+
+  // Grab the acceleration including gravity from the results
+  acceleration = eventData.accelerationIncludingGravity;
+  info = xyz.replace("X", acceleration.x);
+  info = info.replace("Y", acceleration.y);
+  info = info.replace("Z", acceleration.z);
+  document.getElementById("moAccelGrav").innerHTML = info;
+
+  // Grab the rotation rate from the results
+  var rotation = eventData.rotationRate;
+  info = xyz.replace("X", rotation.alpha);
+  info = info.replace("Y", rotation.beta);
+  info = info.replace("Z", rotation.gamma);
+  document.getElementById("moRotation").innerHTML = info;
+
+  alpha = rotation.alpha;
+  beta = rotation.beta;
+  gamma = rotation.gamma;
+
+  // // Grab the refresh interval from the results
+  info = eventData.interval;
+  document.getElementById("moInterval").innerHTML = info;       
+}
+
+
+
+</script
+
+
+</body>
+
+</html>
