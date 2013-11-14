@@ -70,7 +70,7 @@ if (window.DeviceMotionEvent) {
 
 if (window.DeviceMotionEvent) {
   window.addEventListener('devicemotion', deviceMotionHandler, false);
-  window.setInterval(sampleSensorData, 5000)
+  window.setInterval(sampleSensorData, 500)
 
   window.addEventListener('shakestart', function(event){
     document.getElementById('shakeState').innerHTML = 'Shaking';
